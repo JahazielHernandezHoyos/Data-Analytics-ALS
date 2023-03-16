@@ -2,3 +2,5 @@ train_landmark_files/
 data/npy_data/
 *.pyc
 $RECYCLE.BIN/
+System Volume Information
+__pycache__/
