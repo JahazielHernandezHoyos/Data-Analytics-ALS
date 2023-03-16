@@ -33,8 +33,14 @@ def main():
         cleaned_data = data_cleaner.clean(parquet_path)
 
         # Agregar esta línea para imprimir el número máximo de frames en cleaned_data
-        print("Max frames in cleaned_data:", cleaned_data["frame"].max())
-
+        print(
+            "Max frames in cleaned_data:",
+            cleaned_data["frame"].max(),
+            "for participant_id:",
+            row["participant_id"],
+            "and sequence_id:",
+            row["sequence_id"],
+        )
         # Dividir y guardar los datos en archivos .npy
         train_data, val_data = data_processor.split_data(
             cleaned_data, config.TRAIN_RATIO
@@ -64,6 +70,8 @@ def main():
         val_subjects_data[participant_id]["n_points"] += len(val_data)
         val_subjects_data[participant_id]["n_frames"].update(np.unique(val_data[:, 1]))
 
+    utils.save_dict_to_csv(train_subjects_data, config.TRAIN_SUBJECTS_DATA_PATH)
+    utils.save_dict_to_csv(val_subjects_data, config.VAL_SUBJECTS_DATA_PATH)
 
 if __name__ == "__main__":
     main()

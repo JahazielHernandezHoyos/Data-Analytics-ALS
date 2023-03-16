@@ -28,3 +28,13 @@ def filter_csv_by_sign(csv_file: str, output_file: str, sign: str) -> None:
     data = pd.read_csv(csv_file)
     filtered_data = data[data["sign"] == sign]
     filtered_data.to_csv(output_file, index=False)
+
+def save_dict_to_csv(dictionary, output_file):
+    """Guarda un diccionario en un archivo CSV.
+
+    Args:
+        dictionary (dict): Diccionario a guardar.
+        output_file (str): Ruta del archivo CSV de salida.
+    """
+    df = pd.DataFrame.from_dict(dictionary, orient="index")
+    df.to_csv(output_file)

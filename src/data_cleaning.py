@@ -1,6 +1,7 @@
 """Módulo para la limpieza y preprocesamiento de datos."""
 
 import pandas as pd
+import numpy as np
 
 
 class DataCleaner:
@@ -24,5 +25,7 @@ class ParquetDataCleaner(DataCleaner):
             DataFrame: Datos limpios y preprocesados.
         """
         data = pd.read_parquet(file_path)
-        cleaned_data = data[['frame', 'landmark_index', 'x', 'y', 'z']]
+        cleaned_data = data[["frame", "landmark_index", "x", "y"]]
+        # convertir en np.float16
+        cleaned_data = cleaned_data.astype(np.float16)
         return cleaned_data

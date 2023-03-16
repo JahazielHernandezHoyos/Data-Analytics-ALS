@@ -5,8 +5,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import plotly.graph_objects as go
 import numpy as np
+import os
 
-PATH = "data/npy_data/2044_131370200_train.npy"
+
+PATH = "data/npy_data"
+
+# select a random file
+file = np.random.choice(os.listdir(PATH))
+PATH = os.path.join(PATH, file)
 
 data = np.load(PATH)
 

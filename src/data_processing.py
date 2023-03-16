@@ -38,7 +38,7 @@ class ParquetDataProcessor(DataProcessor):
         n_descriptors = len(data.columns) - 2
 
         reshaped_data = np.empty(
-            (n_points, n_frames + 1, n_descriptors), dtype=np.float32
+            (n_points, int(n_frames) + 1, n_descriptors), dtype=np.float16
         )
 
         for _, row in (
