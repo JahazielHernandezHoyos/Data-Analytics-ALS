@@ -16,14 +16,21 @@ PATH = os.path.join(PATH, file)
 
 data = np.load(PATH)
 
+# normalizar los datos
+data = data / data.max()
+
 # Visualizar los datos
 plt.plot(data[:, 0], data[:, 1], "o")
 plt.show()
 
 # Visualizar los datos con plotly
-fig = go.Figure(data=go.Scatter(x=data[:, 0], y=data[:, 1], mode="markers"))
-fig.show()
+# fig = go.Figure(data=go.Scatter(x=data[:, 0], y=data[:, 1], mode="markers"))
+# fig.show()
 
-# ver los primeros 50 datos
 print(data[:50])
 print("Forma del archivo .npy:", data.shape)
+print("Tipo de datos:", data.dtype)
+print("Primeros 50 datos:\n", data[:50])
+print("Últimos 50 datos:\n", data[-50:])
+print("Datos aleatorios:\n", data[np.random.randint(0, data.shape[0], 50)])
+
