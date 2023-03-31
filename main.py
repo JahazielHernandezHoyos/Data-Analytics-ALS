@@ -28,6 +28,7 @@ def main():
 
     train_subjects_data = {}
     val_subjects_data = {}
+    min_and_max = {}
     for index, row in data_info.iterrows():
         parquet_path = config.RAW_DATA_PATH + row["path"]
         cleaned_data = data_cleaner.clean(parquet_path)
@@ -41,6 +42,17 @@ def main():
             "and sequence_id:",
             row["sequence_id"],
         )
+
+        # Visualizar como esta compuesta cleaned_data
+        print(
+              "cleaned_data:",
+              cleaned_data,
+              cleaned_data.shape,
+              cleaned_data.columns,
+              cleaned_data["frame"].max(),
+              cleaned_data["frame"].min(),
+              cleaned_data["frame"].unique(),
+              cleaned_data["frame"].value_counts())
         # Dividir y guardar los datos en archivos .npy
         train_data, val_data = data_processor.split_data(
             cleaned_data, config.TRAIN_RATIO
@@ -72,6 +84,7 @@ def main():
 
     utils.save_dict_to_csv(train_subjects_data, config.TRAIN_SUBJECTS_DATA_PATH)
     utils.save_dict_to_csv(val_subjects_data, config.VAL_SUBJECTS_DATA_PATH)
+
 
 if __name__ == "__main__":
     main()
