@@ -7,10 +7,6 @@ import pandas as pd
 class DataProcessor:
     """Clase base para el procesamiento de datos."""
 
-    def split_data(self, data, train_ratio):
-        """Método para dividir los datos en conjuntos de entrenamiento y validación."""
-        pass
-
     def save_npy_file(self, data, file_path):
         """Guarda los datos en un archivo .npy.
 
@@ -33,18 +29,18 @@ class DataProcessor:
         n_frames = data["frame"].max()
 
         # Cambiamos la forma del resultado a (n_frames, n_descriptores)
-        data_descriptor = np.zeros((n_frames, 8))
+        data_descriptor = np.zeros((int(n_frames), 8))
 
-        for frame in range(1, n_frames + 1):
+        for frame in range(1, int(n_frames) + 1):
             frame_data = data[data["frame"] == frame]
-            d1 = np.mean(frame_data["X"])
-            d2 = np.mean(frame_data["Y"])
-            d3 = np.max(frame_data["X"])
-            d4 = np.max(frame_data["Y"])
-            d5 = np.min(frame_data["X"])
-            d6 = np.min(frame_data["Y"])
-            d7 = np.sum(np.square(frame_data["X"]))
-            d8 = np.sum(np.square(frame_data["Y"]))
+            d1 = np.mean(frame_data["x"])
+            d2 = np.mean(frame_data["y"])
+            d3 = np.max(frame_data["x"])
+            d4 = np.max(frame_data["y"])
+            d5 = np.min(frame_data["x"])
+            d6 = np.min(frame_data["y"])
+            d7 = np.sum(np.square(frame_data["x"]))
+            d8 = np.sum(np.square(frame_data["y"]))
             data_descriptor[frame - 1, :] = [d1, d2, d3, d4, d5, d6, d7, d8]
 
         return data_descriptor

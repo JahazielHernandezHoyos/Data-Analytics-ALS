@@ -1,7 +1,7 @@
 """Script principal para ejecutar el flujo de trabajo."""
 
 from src.data_cleaning import ParquetDataCleaner
-from src.data_processing import ParquetDataProcessor
+from src.data_processing import DataProcessor
 from src import utils
 import config
 import os
@@ -24,7 +24,7 @@ def main():
     os.makedirs(config.NPY_DATA_PATH, exist_ok=True)
 
     data_cleaner = ParquetDataCleaner()
-    data_processor = ParquetDataProcessor()
+    data_processor = DataProcessor()
 
     train_subjects_data = {}
     val_subjects_data = {}
