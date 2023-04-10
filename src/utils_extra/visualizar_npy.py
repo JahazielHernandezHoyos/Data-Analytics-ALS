@@ -3,7 +3,7 @@ Visualizar un archivo .npy con matplotlib
 """
 import matplotlib.pyplot as plt
 import numpy as np
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import numpy as np
 import os
 

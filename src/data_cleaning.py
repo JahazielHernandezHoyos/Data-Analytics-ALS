@@ -11,7 +11,6 @@ class DataCleaner:
         """Método para limpiar los datos."""
         pass
 
-
 class ParquetDataCleaner(DataCleaner):
     """Clase para la limpieza de datos en formato parquet."""
 
@@ -29,3 +28,5 @@ class ParquetDataCleaner(DataCleaner):
         # convertir en np.float16
         cleaned_data = cleaned_data.astype(np.float16)
         return cleaned_data
+
+# %%

@@ -7,10 +7,6 @@ import pandas as pd
 class DataProcessor:
     """Clase base para el procesamiento de datos."""
 
-    def split_data(self, data, train_ratio):
-        """Método para dividir los datos en conjuntos de entrenamiento y validación."""
-        pass
-
     def save_npy_file(self, data, file_path):
         """Guarda los datos en un archivo .npy.
 
@@ -21,11 +17,8 @@ class DataProcessor:
         np.save(file_path, data)
 
 
-class ParquetDataProcessor(DataProcessor):
-    """Clase para el procesamiento de datos en formato parquet."""
-
     def reshape_data(self, data):
-        """Convierte el DataFrame en una matriz NumPy con la forma (n_puntos, n_frames, n_descriptores).
+        """Convierte el DataFrame en una matriz NumPy con la forma (n_frames, n_descriptores).
 
         Args:
             data (DataFrame): Datos en formato de DataFrame.
@@ -34,20 +27,23 @@ class ParquetDataProcessor(DataProcessor):
             ndarray: Datos en formato de matriz NumPy.
         """
         n_frames = data["frame"].max()
-        n_points = data["landmark_index"].nunique()
-        n_descriptors = len(data.columns) - 2
 
-        reshaped_data = np.empty(
-            (n_points, int(n_frames) + 1, n_descriptors), dtype=np.float16
-        )
+        # Cambiamos la forma del resultado a (n_frames, n_descriptores)
+        data_descriptor = np.zeros((int(n_frames), 8))
 
-        for _, row in (
-            data.groupby(["landmark_index", "frame"], as_index=False).mean().iterrows()
-        ):
-            point, frame = int(row["landmark_index"]), int(row["frame"])
-            reshaped_data[point - 1, frame - 1] = row.iloc[2:].values.flatten()
+        for frame in range(1, int(n_frames) + 1):
+            frame_data = data[data["frame"] == frame]
+            d1 = np.mean(frame_data["x"])
+            d2 = np.mean(frame_data["y"])
+            d3 = np.max(frame_data["x"])
+            d4 = np.max(frame_data["y"])
+            d5 = np.min(frame_data["x"])
+            d6 = np.min(frame_data["y"])
+            d7 = np.sum(np.square(frame_data["x"]))
+            d8 = np.sum(np.square(frame_data["y"]))
+            data_descriptor[frame - 1, :] = [d1, d2, d3, d4, d5, d6, d7, d8]
 
-        return reshaped_data
+        return data_descriptor
 
     def split_data(self, data, train_ratio):
         """Divide los datos en conjuntos de entrenamiento y validación.

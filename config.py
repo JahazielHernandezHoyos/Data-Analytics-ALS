@@ -1,6 +1,6 @@
 """Configuración del proyecto."""
 DATA_PATH = "data/"
-RAW_DATA_PATH = ""
+RAW_DATA_PATH = "" #no se usa
 CLEANED_DATA_PATH = "data/cleaned_data/"
 NPY_DATA_PATH = "data/npy_data/"
 CSV_FILE = "data/train.csv"
