@@ -1,0 +1,24 @@
+Board state: _________
+Alfa: -100000000
+Beta: -100000000
+O puede ganar
+Board state: X___O____
+Alfa: -100000000
+Beta: -100000000
+O puede ganar
+Board state: XOX_O____
+Alfa: -100000000
+Beta: -100000000
+O puede ganar
+Board state: XOXOO__X_
+Alfa: -100000000
+Beta: -100000000
+O puede ganar
+Board state: _X_______
+Alfa: 100000000
+Beta: 100000000
+X puede ganar
+Board state: ____X____
+Alfa: 100000000
+Beta: 100000000
+X puede ganar
